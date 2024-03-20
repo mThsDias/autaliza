@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  password  String
+  email     String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("update_at")
+  cars      PostCar[]
+
+  @@map("users")
+}
+
+enum Status {
+  pending
+  accepted
+  rejected
+}
+
+model PostCar {
+  id          String  @id @default(uuid())
+  model       String
+  year        Decimal
+  km          Decimal
+  description String
+  price       Decimal
+  image       String
+  status      Status  @default(pending)
+  owner       User    @relation(fields: [ownerId], references: [id])
+  ownerId     String  @map("owner_id")
+
+  @@map("posts_car")
+}
