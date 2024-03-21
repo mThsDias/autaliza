@@ -1,20 +1,20 @@
 import { Request, Response } from 'express';
-import { FindUserId } from '../use-cases/find-user-id.usecase';
-import { UserIdExistsError } from '../use-cases/errors/user-id-exists';
+import { FindUserEmail } from '../use-cases/find-user-email.usecase';
+import { UserEmailExistsError } from '../use-cases/errors/user-email-exists';
 import { z } from 'zod';
 
-const FindIdParamsSchema = z.object({
-  id: z.string().uuid(),
+const FindEmailParamsSchema = z.object({
+  email: z.string().email(),
 });
 
-export class FindUserIdController {
+export class FindUserEmailController {
   async handle(req: Request, res: Response) {
     try {
-      const { id } = FindIdParamsSchema.parse(req.params);
-      const userFound = await FindUserId.execute(id);
+      const { email } = FindEmailParamsSchema.parse(req.query);
+      const userFound = await FindUserEmail.execute(email);
       return res.status(200).json({ message: 'User found', userFound });
     } catch (error) {
-      if (error instanceof UserIdExistsError) {
+      if (error instanceof UserEmailExistsError) {
         return res.status(404).send({
           message: error.message,
         });
@@ -25,8 +25,6 @@ export class FindUserIdController {
           message: error.errors[0].message,
         });
       }
-
-      throw error;
     }
   }
 }
