@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { CreateUserUseCase } from '../use-cases/create-user.usecase';
 import { UserlreadyExistsError } from '../use-cases/errors/user-already-exists';
 
-export const createUserBodySchema = z.object({
+const createUserBodySchema = z.object({
   name: z.string(),
   email: z.string().email(),
   password: z.string().min(6),

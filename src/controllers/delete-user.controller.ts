@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
-import { FindUserIdUseCase } from '../use-cases/find-user-id.usecase';
 import { UserIdExistsError } from '../use-cases/errors/user-id-exists';
+import { DeleteUserUseCase } from '../use-cases/delete-user.usecase';
 import { z } from 'zod';
 
-const FindIdParamsSchema = z.object({
+const DeleteIdParamsSchema = z.object({
   id: z.string().uuid(),
 });
 
-export class FindUserIdController {
+export class DeleteUserController {
   async handle(req: Request, res: Response) {
     try {
-      const { id } = FindIdParamsSchema.parse(req.params);
-      const userFound = await FindUserIdUseCase.execute(id);
-      return res.status(200).json({ message: 'User found', userFound });
+      const { id } = DeleteIdParamsSchema.parse(req.params);
+      const deleteUser = await DeleteUserUseCase.execute(id);
+      return res
+        .status(200)
+        .json({ message: 'User successfully deleted', deleteUser });
     } catch (error) {
       if (error instanceof UserIdExistsError) {
         return res.status(404).send({

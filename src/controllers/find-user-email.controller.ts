@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { FindUserEmail } from '../use-cases/find-user-email.usecase';
+import { FindUserEmailUseCase } from '../use-cases/find-user-email.usecase';
 import { UserEmailExistsError } from '../use-cases/errors/user-email-exists';
 import { z } from 'zod';
 
@@ -11,7 +11,7 @@ export class FindUserEmailController {
   async handle(req: Request, res: Response) {
     try {
       const { email } = FindEmailParamsSchema.parse(req.query);
-      const userFound = await FindUserEmail.execute(email);
+      const userFound = await FindUserEmailUseCase.execute(email);
       return res.status(200).json({ message: 'User found', userFound });
     } catch (error) {
       if (error instanceof UserEmailExistsError) {
