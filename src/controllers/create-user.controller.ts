@@ -28,8 +28,7 @@ export class CreateUserController {
           message: error.errors[0].message,
         });
       }
-  
-  
+
       throw error;
     }
   }

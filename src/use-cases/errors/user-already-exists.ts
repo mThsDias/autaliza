@@ -1,8 +1,9 @@
 interface UserAlreadyExists {
-  message: string
+  message: string;
 }
+
 export class UserlreadyExistsError extends Error implements UserAlreadyExists {
-	constructor(identifier: string) {
-		super(`User with e-mail "${identifier}" already exists.`);
-	}
+  constructor(identifier: string) {
+    super(`User with e-mail "${identifier}" already exists.`);
+  }
 }
