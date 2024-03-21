@@ -1,17 +1,28 @@
 import { Request, Response } from 'express';
 import { FindUserId } from '../use-cases/find-user-id.usecase';
 import { UserIdExistsError } from '../use-cases/errors/user-id-exists';
+import { z } from 'zod';
+
+const FindIdParamsSchema = z.object({
+  id: z.string().uuid(),
+});
 
 export class FindUserIdController {
   async handle(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      const user = await FindUserId.execute(id);
-      return res.status(200).json({ message: 'ID encontrado', user });
+      const { id } = FindIdParamsSchema.parse(req.params);
+      const userFond = await FindUserId.execute(id);
+      return res.status(200).json({ message: 'ID encontrado', userFond });
     } catch (error) {
       if (error instanceof UserIdExistsError) {
-        return res.status(409).send({
+        return res.status(404).send({
           message: error.message,
+        });
+      }
+
+      if (error instanceof z.ZodError) {
+        return res.status(400).send({
+          message: error.errors[0].message,
         });
       }
 
