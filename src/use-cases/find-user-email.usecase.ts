@@ -1,4 +1,4 @@
-import { User } from '../entities/user.entity';
+import { User } from '../entities/User';
 import { prismaClient } from '../database/prisma-client';
 import { UserEmailExistsError } from './errors/user-email-exists';
 

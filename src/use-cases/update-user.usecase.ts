@@ -1,4 +1,4 @@
-import { User } from '../entities/user.entity';
+import { User } from '../entities/User';
 import { prismaClient } from '../database/prisma-client';
 import { UpdateUserDTO } from '../dtos/update-user.dto';
 import { UserUpdateExistsError } from './errors/update-user-exists';

@@ -1,7 +1,7 @@
 import { CreateUserDTO } from '../dtos/create-user.dto';
-import { User } from '../entities/user.entity';
+import { User } from '../entities/User';
 import { prismaClient } from '../database/prisma-client';
-import { UserlreadyExistsError } from './errors/user-already-exists';
+import { UserAlreadyExistsError } from './errors/user-already-exists';
 import bcrypt from 'bcrypt';
 
 export class CreateUserUseCase {
@@ -17,7 +17,7 @@ export class CreateUserUseCase {
     });
 
     if (userAlreadyExists) {
-      throw new UserlreadyExistsError(email);
+      throw new UserAlreadyExistsError(email);
     }
 
     const hashPassword = await bcrypt.hash(password, 10);

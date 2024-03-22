@@ -22,7 +22,7 @@ export class UpdateUserController {
         name,
         password,
       });
-      return res.status(200).json({ message: 'User updated', updateUser });
+      return res.status(200).send({ message: 'User updated', updateUser });
     } catch (error) {
       if (error instanceof UserUpdateExistsError) {
         return res.status(409).send({
