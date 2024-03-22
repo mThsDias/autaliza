@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { CreateUserUseCase } from '../use-cases/create-user.usecase';
-import { UserlreadyExistsError } from '../use-cases/errors/user-already-exists';
+import { UserAlreadyExistsError } from '../use-cases/errors/user-already-exists';
 
 const createUserBodySchema = z.object({
   name: z.string(),
@@ -17,7 +17,7 @@ export class CreateUserController {
       await CreateUserUseCase.execute({ name, email, password });
       return res.status(201).json({ message: 'User created!' });
     } catch (error) {
-      if (error instanceof UserlreadyExistsError) {
+      if (error instanceof UserAlreadyExistsError) {
         return res.status(409).send({
           message: error.message,
         });

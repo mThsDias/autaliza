@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '../dtos/create-user.dto';
+import { LoginUserDTO } from '../dtos/login-user.dto';
 import { prismaClient } from '../database/prisma-client';
 import { UserAlreadyExistsError } from './errors/user-already-exists';
 import jwt from 'jsonwebtoken';
@@ -8,7 +8,7 @@ export class LoginUserUseCase {
   static async execute({
     email,
     password,
-  }: CreateUserDTO): Promise<string | void> {
+  }: LoginUserDTO): Promise<string | void> {
     const userExists = await prismaClient.user.findUnique({
       where: {
         email,
