@@ -18,7 +18,7 @@ export class ProfileUserUseCase {
     return {
       name: userExists.name,
       email: userExists.email,
-      password: '',
+      password: '#',
     };
   }
 }

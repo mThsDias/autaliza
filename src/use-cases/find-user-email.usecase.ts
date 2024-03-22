@@ -14,6 +14,10 @@ export class FindUserEmailUseCase {
       throw new UserEmailExistsError(email);
     }
 
-    return userEmailExists;
+    return {
+      name: userEmailExists.name,
+      email: userEmailExists.email,
+      password: '#',
+    };
   }
 }

@@ -14,6 +14,10 @@ export class FindUserIdUseCase {
       throw new UserIdExistsError(id);
     }
 
-    return userIdExists;
+    return {
+      name: userIdExists.name,
+      email: userIdExists.email,
+      password: '#',
+    };
   }
 }

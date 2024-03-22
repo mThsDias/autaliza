@@ -12,6 +12,10 @@ export class DeleteUserUseCase {
       throw new UserIdExistsError(id);
     }
 
-    return deleteUser;
+    return {
+      name: deleteUser.name,
+      email: deleteUser.email,
+      password: '#',
+    };
   }
 }

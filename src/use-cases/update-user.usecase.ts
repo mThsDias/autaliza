@@ -14,6 +14,10 @@ export class UpdateUserUseCase {
       throw new UserUpdateExistsError(id);
     }
 
-    return updateUser;
+    return {
+      name: updateUser.name,
+      email: updateUser.email,
+      password: '#',
+    };
   }
 }
