@@ -1,4 +1,4 @@
-import { LoginUserDTO } from '../dtos/login-user.dto';
+import { LoginUserDTO } from '../dtos/login-user.dtos';
 import { prismaClient } from '../database/prisma-client';
 import { UserAlreadyExistsError } from './errors/user-already-exists';
 import jwt from 'jsonwebtoken';

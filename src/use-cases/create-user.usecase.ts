@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '../dtos/create-user.dto';
+import { CreateUserDTO } from '../dtos/create-user.dtos';
 import { User } from '../entities/User';
 import { prismaClient } from '../database/prisma-client';
 import { UserAlreadyExistsError } from './errors/user-already-exists';

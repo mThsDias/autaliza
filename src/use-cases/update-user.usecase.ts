@@ -1,6 +1,6 @@
 import { User } from '../entities/User';
 import { prismaClient } from '../database/prisma-client';
-import { UpdateUserDTO } from '../dtos/update-user.dto';
+import { UpdateUserDTO } from '../dtos/update-user.dtos';
 import { UserUpdateExistsError } from './errors/update-user-exists';
 
 export class UpdateUserUseCase {
