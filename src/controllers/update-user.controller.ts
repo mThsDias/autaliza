@@ -8,7 +8,7 @@ const UpdateUserParamsSchema = z.object({
 });
 
 const UpdateUserBodySchema = z.object({
-  email: z.string().email(),
+  name: z.string(),
   password: z.string().min(6),
 });
 
@@ -16,10 +16,10 @@ export class UpdateUserController {
   async handle(req: Request, res: Response) {
     try {
       const { id } = UpdateUserParamsSchema.parse(req.params);
-      const { email, password } = UpdateUserBodySchema.parse(req.body);
+      const { name, password } = UpdateUserBodySchema.parse(req.body);
       const updateUser = await UpdateUserUseCase.execute({
         id,
-        email,
+        name,
         password,
       });
       return res.status(200).json({ message: 'User updated', updateUser });
