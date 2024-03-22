@@ -14,7 +14,7 @@ model User {
   email     String    @unique
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  cars      PostCar[]
+  post      Post[]
 
   @@map("users")
 }
@@ -25,7 +25,7 @@ enum Status {
   rejected
 }
 
-model PostCar {
+model Post {
   id          String  @id @default(uuid())
   model       String
   year        Decimal
@@ -37,5 +37,5 @@ model PostCar {
   owner       User    @relation(fields: [ownerId], references: [id])
   ownerId     String  @map("owner_id")
 
-  @@map("posts_car")
+  @@map("posts")
 }
