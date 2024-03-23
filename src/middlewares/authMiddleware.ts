@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { JwtPayload } from '../dtos/jwt-payload.dtos';
 import jwt from 'jsonwebtoken';
-import { User } from '../entities/User';
+import { User } from '../entities/user.entity';
 
 export const authMiddleware = async (
   req: Request,
