@@ -1,5 +1,5 @@
 import { CreateUserDTO } from '../dtos/create-user.dtos';
-import { User } from '../entities/User';
+import { User } from '../entities/user.entity';
 import { prismaClient } from '../database/prisma-client';
 import { UserAlreadyExistsError } from './errors/user-already-exists';
 import bcrypt from 'bcrypt';

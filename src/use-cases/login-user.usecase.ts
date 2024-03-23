@@ -5,11 +5,10 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 export class LoginUserUseCase {
-  static async execute({ email, password }: LoginUserDTO): Promise<{
-    token: string;
-    name: string;
-    email: string;
-  } | void> {
+  static async execute({
+    email,
+    password,
+  }: LoginUserDTO): Promise<string | void> {
     const userExists = await prismaClient.user.findUnique({
       where: {
         email,
@@ -30,6 +29,6 @@ export class LoginUserUseCase {
       expiresIn: '8h',
     });
 
-    return { token, name: userExists.name, email: userExists.email };
+    return token;
   }
 }

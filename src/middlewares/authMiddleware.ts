@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { ProfileUserUseCase } from '../use-cases/profile-user.usecase';
 import { JwtPayload } from '../dtos/jwt-payload.dtos';
 import jwt from 'jsonwebtoken';
+import { User } from '../entities/User';
 
 export const authMiddleware = async (
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
   const { authorization } = req.headers;
@@ -16,11 +17,11 @@ export const authMiddleware = async (
 
   const token = authorization?.split(' ')[1];
 
-  const { id } = jwt.verify(token, process.env.JWT_PASSWORD!) as JwtPayload;
-
-  const logged = await ProfileUserUseCase.execute({ id });
-
-  req.user = logged;
-
-  next();
+  try {
+    const { id } = jwt.verify(token!, process.env.JWT_PASSWORD!) as JwtPayload;
+    req.user = { id } as Partial<User>;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Token inválido' });
+  }
 };

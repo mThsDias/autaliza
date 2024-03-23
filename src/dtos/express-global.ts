@@ -1,4 +1,4 @@
-import { User } from '../entities/User';
+import { User } from '../entities/user.entity';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
