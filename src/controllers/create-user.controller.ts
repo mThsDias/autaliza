@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { CreateUserUseCase } from '../use-cases/create-user.usecase';
