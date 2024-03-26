@@ -5,26 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "notinline-flex notitems-center notjustify-center notwhitespace-nowrap notrounded-md nottext-sm notfont-medium nottransition-colors focus-visible:notoutline-none focus-visible:notring-1 focus-visible:notring-ring disabled:notpointer-events-none disabled:notopacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
-          "notbg-primary nottext-primary-foreground notshadow hover:notbg-primary/90",
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive:
-          "notbg-destructive nottext-destructive-foreground notshadow-sm hover:notbg-destructive/90",
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
-          "notborder notborder-input notbg-background notshadow-sm hover:notbg-accent hover:nottext-accent-foreground",
+          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
         secondary:
-          "notbg-secondary nottext-secondary-foreground notshadow-sm hover:notbg-secondary/80",
-        ghost: "hover:notbg-accent hover:nottext-accent-foreground",
-        link: "nottext-primary notunderline-offset-4 hover:notunderline",
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "noth-9 notpx-4 notpy-2",
-        sm: "noth-8 notrounded-md notpx-3 nottext-xs",
-        lg: "noth-10 notrounded-md notpx-8",
-        icon: "noth-9 notw-9",
+        default: "h-9 px-4 py-2",
+        sm: "h-8 rounded-md px-3 text-xs",
+        lg: "h-10 rounded-md px-8",
+        icon: "h-9 w-9",
       },
     },
     defaultVariants: {

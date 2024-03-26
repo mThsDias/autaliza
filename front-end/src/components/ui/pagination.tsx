@@ -12,7 +12,7 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
     role="navigation"
     aria-label="pagination"
-    className={cn("notmx-auto notflex notw-full notjustify-center", className)}
+    className={cn("mx-auto flex w-full justify-center", className)}
     {...props}
   />
 )
@@ -24,7 +24,7 @@ const PaginationContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ul
     ref={ref}
-    className={cn("notflex notflex-row notitems-center notgap-1", className)}
+    className={cn("flex flex-row items-center gap-1", className)}
     {...props}
   />
 ))
@@ -34,7 +34,7 @@ const PaginationItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<"li">
 >(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn("not", className)} {...props} />
+  <li ref={ref} className={cn("", className)} {...props} />
 ))
 PaginationItem.displayName = "PaginationItem"
 
@@ -70,10 +70,10 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("notgap-1 notpl-2.5", className)}
+    className={cn("gap-1 pl-2.5", className)}
     {...props}
   >
-    <ChevronLeftIcon className="noth-4 notw-4" />
+    <ChevronLeftIcon className="h-4 w-4" />
     <span>Previous</span>
   </PaginationLink>
 )
@@ -86,11 +86,11 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("notgap-1 notpr-2.5", className)}
+    className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
     <span>Next</span>
-    <ChevronRightIcon className="noth-4 notw-4" />
+    <ChevronRightIcon className="h-4 w-4" />
   </PaginationLink>
 )
 PaginationNext.displayName = "PaginationNext"
@@ -101,11 +101,11 @@ const PaginationEllipsis = ({
 }: React.ComponentProps<"span">) => (
   <span
     aria-hidden
-    className={cn("notflex noth-9 notw-9 notitems-center notjustify-center", className)}
+    className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <DotsHorizontalIcon className="noth-4 notw-4" />
-    <span className="notsr-only">More pages</span>
+    <DotsHorizontalIcon className="h-4 w-4" />
+    <span className="sr-only">More pages</span>
   </span>
 )
 PaginationEllipsis.displayName = "PaginationEllipsis"

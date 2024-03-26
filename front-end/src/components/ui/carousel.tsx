@@ -135,7 +135,7 @@ const Carousel = React.forwardRef<
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
-          className={cn("notrelative", className)}
+          className={cn("relative", className)}
           role="region"
           aria-roledescription="carousel"
           {...props}
@@ -155,12 +155,12 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="notoverflow-hidden">
+    <div ref={carouselRef} className="overflow-hidden">
       <div
         ref={ref}
         className={cn(
-          "notflex",
-          orientation === "horizontal" ? "not-ml-4" : "not-mt-4 notflex-col",
+          "flex",
+          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className
         )}
         {...props}
@@ -182,8 +182,8 @@ const CarouselItem = React.forwardRef<
       role="group"
       aria-roledescription="slide"
       className={cn(
-        "notmin-w-0 notshrink-0 notgrow-0 notbasis-full",
-        orientation === "horizontal" ? "notpl-4" : "notpt-4",
+        "min-w-0 shrink-0 grow-0 basis-full",
+        orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
       {...props}
@@ -204,18 +204,18 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "notabsolute not noth-8 notw-8 notrounded-full",
+        "absolute  h-8 w-8 rounded-full",
         orientation === "horizontal"
-          ? "not-left-12 nottop-1/2 not-translate-y-1/2"
-          : "not-top-12 notleft-1/2 not-translate-x-1/2 notrotate-90",
+          ? "-left-12 top-1/2 -translate-y-1/2"
+          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeftIcon className="noth-4 notw-4" />
-      <span className="notsr-only">Previous slide</span>
+      <ArrowLeftIcon className="h-4 w-4" />
+      <span className="sr-only">Previous slide</span>
     </Button>
   )
 })
@@ -233,18 +233,18 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "notabsolute noth-8 notw-8 notrounded-full",
+        "absolute h-8 w-8 rounded-full",
         orientation === "horizontal"
-          ? "not-right-12 nottop-1/2 not-translate-y-1/2"
-          : "not-bottom-12 notleft-1/2 not-translate-x-1/2 notrotate-90",
+          ? "-right-12 top-1/2 -translate-y-1/2"
+          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRightIcon className="noth-4 notw-4" />
-      <span className="notsr-only">Next slide</span>
+      <ArrowRightIcon className="h-4 w-4" />
+      <span className="sr-only">Next slide</span>
     </Button>
   )
 })

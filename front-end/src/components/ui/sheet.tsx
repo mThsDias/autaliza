@@ -19,7 +19,7 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      "notfixed notinset-0 notz-50 notbg-black/80 not data-[state=open]:notanimate-in data-[state=closed]:notanimate-out data-[state=closed]:notfade-out-0 data-[state=open]:notfade-in-0",
+      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -29,16 +29,16 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  "notfixed notz-50 notgap-4 notbg-background notp-6 notshadow-lg nottransition notease-in-out data-[state=open]:notanimate-in data-[state=closed]:notanimate-out data-[state=closed]:notduration-300 data-[state=open]:notduration-500",
+  "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
   {
     variants: {
       side: {
-        top: "notinset-x-0 nottop-0 notborder-b data-[state=closed]:notslide-out-to-top data-[state=open]:notslide-in-from-top",
+        top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
         bottom:
-          "notinset-x-0 notbottom-0 notborder-t data-[state=closed]:notslide-out-to-bottom data-[state=open]:notslide-in-from-bottom",
-        left: "notinset-y-0 notleft-0 noth-full notw-3/4 notborder-r data-[state=closed]:notslide-out-to-left data-[state=open]:notslide-in-from-left sm:notmax-w-sm",
+          "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+        left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
         right:
-          "notinset-y-0 notright-0 noth-full notw-3/4 notborder-l data-[state=closed]:notslide-out-to-right data-[state=open]:notslide-in-from-right sm:notmax-w-sm",
+          "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
     },
     defaultVariants: {
@@ -63,9 +63,9 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="notabsolute notright-4 nottop-4 notrounded-sm notopacity-70 notring-offset-background nottransition-opacity hover:notopacity-100 focus:notoutline-none focus:notring-2 focus:notring-ring focus:notring-offset-2 disabled:notpointer-events-none data-[state=open]:notbg-secondary">
-        <Cross2Icon className="noth-4 notw-4" />
-        <span className="notsr-only">Close</span>
+      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+        <Cross2Icon className="h-4 w-4" />
+        <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>
   </SheetPortal>
@@ -78,7 +78,7 @@ const SheetHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "notflex notflex-col notspace-y-2 nottext-center sm:nottext-left",
+      "flex flex-col space-y-2 text-center sm:text-left",
       className
     )}
     {...props}
@@ -92,7 +92,7 @@ const SheetFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "notflex notflex-col-reverse sm:notflex-row sm:notjustify-end sm:notspace-x-2",
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
       className
     )}
     {...props}
@@ -106,7 +106,7 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn("nottext-lg notfont-semibold nottext-foreground", className)}
+    className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
 ))
@@ -118,7 +118,7 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn("nottext-sm nottext-muted-foreground", className)}
+    className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
 ))

@@ -25,7 +25,7 @@ const Menubar = React.forwardRef<
   <MenubarPrimitive.Root
     ref={ref}
     className={cn(
-      "notflex noth-9 notitems-center notspace-x-1 notrounded-md notborder notbg-background notp-1 notshadow-sm",
+      "flex h-9 items-center space-x-1 rounded-md border bg-background p-1 shadow-sm",
       className
     )}
     {...props}
@@ -40,7 +40,7 @@ const MenubarTrigger = React.forwardRef<
   <MenubarPrimitive.Trigger
     ref={ref}
     className={cn(
-      "notflex notcursor-default notselect-none notitems-center notrounded-sm notpx-3 notpy-1 nottext-sm notfont-medium notoutline-none focus:notbg-accent focus:nottext-accent-foreground data-[state=open]:notbg-accent data-[state=open]:nottext-accent-foreground",
+      "flex cursor-default select-none items-center rounded-sm px-3 py-1 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
       className
     )}
     {...props}
@@ -57,14 +57,14 @@ const MenubarSubTrigger = React.forwardRef<
   <MenubarPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      "notflex notcursor-default notselect-none notitems-center notrounded-sm notpx-2 notpy-1.5 nottext-sm notoutline-none focus:notbg-accent focus:nottext-accent-foreground data-[state=open]:notbg-accent data-[state=open]:nottext-accent-foreground",
-      inset && "notpl-8",
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
+      inset && "pl-8",
       className
     )}
     {...props}
   >
     {children}
-    <ChevronRightIcon className="notml-auto noth-4 notw-4" />
+    <ChevronRightIcon className="ml-auto h-4 w-4" />
   </MenubarPrimitive.SubTrigger>
 ))
 MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName
@@ -76,7 +76,7 @@ const MenubarSubContent = React.forwardRef<
   <MenubarPrimitive.SubContent
     ref={ref}
     className={cn(
-      "notz-50 notmin-w-[8rem] notoverflow-hidden notrounded-md notborder notbg-popover notp-1 nottext-popover-foreground notshadow-lg data-[state=open]:notanimate-in data-[state=closed]:notanimate-out data-[state=closed]:notfade-out-0 data-[state=open]:notfade-in-0 data-[state=closed]:notzoom-out-95 data-[state=open]:notzoom-in-95 data-[side=bottom]:notslide-in-from-top-2 data-[side=left]:notslide-in-from-right-2 data-[side=right]:notslide-in-from-left-2 data-[side=top]:notslide-in-from-bottom-2",
+      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       className
     )}
     {...props}
@@ -99,7 +99,7 @@ const MenubarContent = React.forwardRef<
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          "notz-50 notmin-w-[12rem] notoverflow-hidden notrounded-md notborder notbg-popover notp-1 nottext-popover-foreground notshadow-md data-[state=open]:notanimate-in data-[state=closed]:notfade-out-0 data-[state=open]:notfade-in-0 data-[state=closed]:notzoom-out-95 data-[state=open]:notzoom-in-95 data-[side=bottom]:notslide-in-from-top-2 data-[side=left]:notslide-in-from-right-2 data-[side=right]:notslide-in-from-left-2 data-[side=top]:notslide-in-from-bottom-2",
+          "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
           className
         )}
         {...props}
@@ -118,8 +118,8 @@ const MenubarItem = React.forwardRef<
   <MenubarPrimitive.Item
     ref={ref}
     className={cn(
-      "notrelative notflex notcursor-default notselect-none notitems-center notrounded-sm notpx-2 notpy-1.5 nottext-sm notoutline-none focus:notbg-accent focus:nottext-accent-foreground data-[disabled]:notpointer-events-none data-[disabled]:notopacity-50",
-      inset && "notpl-8",
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      inset && "pl-8",
       className
     )}
     {...props}
@@ -134,15 +134,15 @@ const MenubarCheckboxItem = React.forwardRef<
   <MenubarPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      "notrelative notflex notcursor-default notselect-none notitems-center notrounded-sm notpy-1.5 notpl-8 notpr-2 nottext-sm notoutline-none focus:notbg-accent focus:nottext-accent-foreground data-[disabled]:notpointer-events-none data-[disabled]:notopacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     checked={checked}
     {...props}
   >
-    <span className="notabsolute notleft-2 notflex noth-3.5 notw-3.5 notitems-center notjustify-center">
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <MenubarPrimitive.ItemIndicator>
-        <CheckIcon className="noth-4 notw-4" />
+        <CheckIcon className="h-4 w-4" />
       </MenubarPrimitive.ItemIndicator>
     </span>
     {children}
@@ -157,14 +157,14 @@ const MenubarRadioItem = React.forwardRef<
   <MenubarPrimitive.RadioItem
     ref={ref}
     className={cn(
-      "notrelative notflex notcursor-default notselect-none notitems-center notrounded-sm notpy-1.5 notpl-8 notpr-2 nottext-sm notoutline-none focus:notbg-accent focus:nottext-accent-foreground data-[disabled]:notpointer-events-none data-[disabled]:notopacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
   >
-    <span className="notabsolute notleft-2 notflex noth-3.5 notw-3.5 notitems-center notjustify-center">
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <MenubarPrimitive.ItemIndicator>
-        <DotFilledIcon className="noth-4 notw-4 notfill-current" />
+        <DotFilledIcon className="h-4 w-4 fill-current" />
       </MenubarPrimitive.ItemIndicator>
     </span>
     {children}
@@ -181,8 +181,8 @@ const MenubarLabel = React.forwardRef<
   <MenubarPrimitive.Label
     ref={ref}
     className={cn(
-      "notpx-2 notpy-1.5 nottext-sm notfont-semibold",
-      inset && "notpl-8",
+      "px-2 py-1.5 text-sm font-semibold",
+      inset && "pl-8",
       className
     )}
     {...props}
@@ -196,7 +196,7 @@ const MenubarSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <MenubarPrimitive.Separator
     ref={ref}
-    className={cn("not-mx-1 notmy-1 noth-px notbg-muted", className)}
+    className={cn("-mx-1 my-1 h-px bg-muted", className)}
     {...props}
   />
 ))
@@ -209,7 +209,7 @@ const MenubarShortcut = ({
   return (
     <span
       className={cn(
-        "notml-auto nottext-xs nottracking-widest nottext-muted-foreground",
+        "ml-auto text-xs tracking-widest text-muted-foreground",
         className
       )}
       {...props}
