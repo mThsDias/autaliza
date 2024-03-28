@@ -16,16 +16,8 @@ import {
   MenubarTrigger,
 } from '../ui/menubar';
 import { Button } from '../ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog';
-import { Login } from '@/Login';
+import { Dialog, DialogTrigger } from '../ui/dialog';
+import { SignIn } from '@/components/Login/SignIn';
 
 export const Header = () => {
   return (
@@ -58,18 +50,7 @@ export const Header = () => {
                 <p className="text-white">Login</p>
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Login de usuário</DialogTitle>
-                <DialogDescription>
-                  Faça login para acessar sua conta.
-                </DialogDescription>
-              </DialogHeader>
-              <Login />
-              <DialogFooter>
-                <Button type="submit">Entrar</Button>
-              </DialogFooter>
-            </DialogContent>
+            <SignIn />
           </Dialog>
           <Menubar>
             <MenubarMenu>
