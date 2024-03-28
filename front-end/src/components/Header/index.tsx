@@ -17,7 +17,7 @@ import {
 } from '../ui/menubar';
 import { Button } from '../ui/button';
 import { Dialog, DialogTrigger } from '../ui/dialog';
-import { SignIn } from '@/components/Login/SignIn';
+import { Login } from '../Login';
 
 export const Header = () => {
   return (
@@ -50,7 +50,7 @@ export const Header = () => {
                 <p className="text-white">Login</p>
               </Button>
             </DialogTrigger>
-            <SignIn />
+            <Login />
           </Dialog>
           <Menubar>
             <MenubarMenu>

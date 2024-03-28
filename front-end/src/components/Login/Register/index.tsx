@@ -11,27 +11,35 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export const ForgotPassword = () => {
+export const Register = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost">Esqueceu sua senha?</Button>
+        <Button variant="ghost">Criar conta</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Recuperação de senha</DialogTitle>
+          <DialogTitle>Cadastre-se</DialogTitle>
           <DialogDescription>
-            Digite seu email para recuperar sua senha.
+            Crie uma conta para acessar todos os recursos.
           </DialogDescription>
         </DialogHeader>
         <form>
           <div className="py-3">
+            <Label htmlFor="name">Nome</Label>
+            <Input id="name" name="name" required />
+          </div>
+          <div className="py-3">
             <Label htmlFor="email">Email</Label>
             <Input type="email" id="email" name="email" required />
           </div>
+          <div className="py-3">
+            <Label htmlFor="password">password</Label>
+            <Input type="password" id="password" name="password" required />
+          </div>
         </form>
         <DialogFooter>
-          <Button type="submit">Enviar</Button>
+          <Button type="submit">Criar conta</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
