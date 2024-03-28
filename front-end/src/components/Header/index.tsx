@@ -6,9 +6,8 @@ import { SVGMenu } from '@/shared/icons/SVGMenu';
 import { SVGTruck } from '@/shared/icons/SVGTruck';
 import { SVGCoins } from '@/shared/icons/SVGCoins';
 import { SVGCredit } from '@/shared/icons/SVGCredit';
-import { Banner } from '../Banner';
 import bg from './assets/bg.png';
-import { Button } from '../ui/button';
+import { Banner } from '../Banner';
 import {
   Menubar,
   MenubarContent,
@@ -16,13 +15,24 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from '../ui/menubar';
+import { Button } from '../ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog';
+import { Login } from '@/Login';
 
 export const Header = () => {
   return (
     <header>
       <Banner img={bg} />
       <div className="absolute top-0 left-0 w-full">
-        <div className="flex items-end justify-between py-3 px-5">
+        <div className="flex items-end justify-between py-3 px-4">
           <p className="text-white text-sm font-medium">Autaliza</p>
           <div className="flex gap-2">
             <a href="https://www.instagram.com/julio.cz/" target="_blank">
@@ -40,11 +50,27 @@ export const Header = () => {
           </div>
         </div>
         <div className="w-full h-[1px] bg-white"></div>
-        <div className="flex justify-between items-center py-6 px-5">
-          <div className="flex items-end gap-2">
-            <SVGUser />
-            <p className="text-white text-base">Login</p>
-          </div>
+        <div className="flex justify-between items-center py-7 px-4">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="ghost" className="flex gap-1 hover:bg-zinc-700">
+                <SVGUser />
+                <p className="text-white">Login</p>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Login de usuário</DialogTitle>
+                <DialogDescription>
+                  Faça login para acessar sua conta.
+                </DialogDescription>
+              </DialogHeader>
+              <Login />
+              <DialogFooter>
+                <Button type="submit">Entrar</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
           <Menubar>
             <MenubarMenu>
               <MenubarTrigger>
@@ -58,22 +84,21 @@ export const Header = () => {
             </MenubarMenu>
           </Menubar>
         </div>
-        <div className="px-5 pb-6">
+        <div className="px-4 pb-7">
           <p className="text-white text-base pb-1">
             Confira nossas <span className="text-myColors-green">OFERTAS</span>
           </p>
-          <h1 className="text-white font-bold text-xl pb-4 ">
+          <h1 className="text-white font-bold text-xl pb-4">
             COMPRE COM <span className="text-myColors-green">GARANTIA</span>,
             <br />
             <span className="text-myColors-green">CONSCIÊNCIA</span> E<br />
             <span className="text-myColors-green">QUALIDADE</span>
           </h1>
-          <Button className="bg-zinc-900 hover:bg-zinc-600 ">
+          <Button className="bg-zinc-600 hover:bg-zinc-500 ">
             Ver catálogo
           </Button>
         </div>
-
-        <div className="text-white flex flex-col text-sm justify-between px-5 gap-6">
+        <div className="text-white flex flex-col text-sm justify-between px-4 gap-6">
           <div className="flex items-center">
             <SVGTruck />
             <span className="w-4 h-[1px] bg-myColors-green rotate-90"></span>
