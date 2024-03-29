@@ -4,7 +4,7 @@ export class EmailService {
   static async sendEmail(
     to: string,
     subject: string,
-    text: string
+    html: string
   ): Promise<void> {
     const transporter = NodeMailer.createTransport({
       host: process.env.EMAIL_HOST,
@@ -19,7 +19,7 @@ export class EmailService {
       from: process.env.FROM_ADM,
       to,
       subject,
-      text,
+      html,
     });
   }
 }
