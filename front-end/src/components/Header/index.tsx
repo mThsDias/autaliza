@@ -1,6 +1,3 @@
-import { SVGInstagram } from '@/shared/icons/SVGInstagram';
-import { SVGFacebook } from '@/shared/icons/SVGFacebook';
-import { SVGWhatsApp } from '@/shared/icons/SVGWhatsApp';
 import { SVGUser } from '@/shared/icons/SVGUser';
 import { SVGMenu } from '@/shared/icons/SVGMenu';
 import { SVGTruck } from '@/shared/icons/SVGTruck';
@@ -18,40 +15,35 @@ import {
 import { Button } from '../ui/button';
 import { Dialog, DialogTrigger } from '../ui/dialog';
 import { Login } from '../Login';
+import { useState } from 'react';
+import { ProfileUser } from '../ProfileUser';
 
 export const Header = () => {
+  const token = sessionStorage.getItem('token');
+
+  const [isLogged, setIsLogged] = useState<boolean>(token != null);
+
   return (
     <header>
       <Banner img={bg} />
       <div className="absolute top-0 left-0 w-full">
-        <div className="flex items-end justify-between py-3 px-4">
-          <p className="text-white text-sm font-medium">Autaliza</p>
-          <div className="flex gap-2">
-            <a href="https://www.instagram.com/julio.cz/" target="_blank">
-              <SVGInstagram aria-label="instagram" />
-            </a>
-            <a
-              href="https://www.facebook.com/profile.php?id=100091443447388"
-              target="_blank"
-            >
-              <SVGFacebook aria-label="facebook" />
-            </a>
-            <a href="whatsapp://send?phone=+551499672-3661" target="_blank">
-              <SVGWhatsApp aria-label="whatsApp" />
-            </a>
-          </div>
-        </div>
-        <div className="w-full h-[1px] bg-white"></div>
-        <div className="flex justify-between items-center py-7 px-4">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="ghost" className="flex gap-1 hover:bg-zinc-700">
-                <SVGUser />
-                <p className="text-white">Login</p>
-              </Button>
-            </DialogTrigger>
-            <Login />
-          </Dialog>
+        <div className="flex items-center justify-between py-4 px-4">
+          {!isLogged ? (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex gap-1 hover:bg-zinc-700"
+                >
+                  <SVGUser />
+                  <p className="text-white">Login</p>
+                </Button>
+              </DialogTrigger>
+              <Login userLogged={() => setIsLogged(true)} />
+            </Dialog>
+          ) : (
+            <ProfileUser userLogout={() => setIsLogged(false)} />
+          )}
           <Menubar>
             <MenubarMenu>
               <MenubarTrigger>
@@ -64,6 +56,10 @@ export const Header = () => {
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
+        </div>
+        <div className="w-full h-[1px] bg-white"></div>
+        <div className="flex justify-between items-center py-7 px-4">
+          <p className="text-white text-sm font-medium">Autaliza</p>
         </div>
         <div className="px-4 pb-7">
           <p className="text-white text-base pb-1">

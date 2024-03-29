@@ -25,14 +25,14 @@ export const ForgotPassword = () => {
           </DialogDescription>
         </DialogHeader>
         <form>
-          <div className="py-3">
+          <div className="py-2">
             <Label htmlFor="email">Email</Label>
             <Input type="email" id="email" name="email" required />
           </div>
+          <DialogFooter>
+            <Button type="submit">Enviar</Button>
+          </DialogFooter>
         </form>
-        <DialogFooter>
-          <Button type="submit">Enviar</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
