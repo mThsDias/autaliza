@@ -10,8 +10,8 @@ import { Button } from '../ui/button';
 import { Dialog, DialogTrigger } from '../ui/dialog';
 import { SVGUser } from '@/shared/icons/SVGUser';
 import { SVGMenu } from '@/shared/icons/SVGMenu';
-import { ProfileUser } from '../ProfileUser';
 import { Login } from '../Login';
+import { UserArea } from '@/pages/UserArea';
 
 export const NavBar = () => {
   const token = sessionStorage.getItem('token');
@@ -31,7 +31,7 @@ export const NavBar = () => {
           <Login userLogged={() => setIsLogged(true)} />
         </Dialog>
       ) : (
-        <ProfileUser userLogout={() => setIsLogged(false)} />
+        <UserArea userLogout={() => setIsLogged(false)} />
       )}
       <Menubar>
         <MenubarMenu>
