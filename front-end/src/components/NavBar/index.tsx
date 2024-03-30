@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Menubar,
   MenubarContent,
@@ -11,12 +12,29 @@ import { Dialog, DialogTrigger } from '../ui/dialog';
 import { SVGUser } from '@/shared/icons/SVGUser';
 import { SVGMenu } from '@/shared/icons/SVGMenu';
 import { Login } from '../Login';
-import { UserArea } from '@/pages/UserArea';
+import { Link, useNavigate } from 'react-router-dom';
 
-export const NavBar = () => {
+interface LogoutProps {
+  userLogout?: () => void;
+}
+
+export const NavBar = ({ userLogout }: LogoutProps) => {
   const token = sessionStorage.getItem('token');
 
   const [isLogged, setIsLogged] = useState<boolean>(token != null);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    setIsLogged(false);
+
+    if (userLogout) {
+      userLogout();
+    }
+
+    navigate('/');
+  };
 
   return (
     <nav className="flex items-center justify-between py-4 px-4">
@@ -31,7 +49,24 @@ export const NavBar = () => {
           <Login userLogged={() => setIsLogged(true)} />
         </Dialog>
       ) : (
-        <UserArea userLogout={() => setIsLogged(false)} />
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger>
+              <Avatar>
+                <AvatarImage />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
+            </MenubarTrigger>
+            <MenubarContent>
+              <Link to="/profile">
+                <MenubarItem>Perfil</MenubarItem>
+              </Link>
+              <MenubarItem>Novo anúncio</MenubarItem>
+              <MenubarItem>Meus anúncios</MenubarItem>
+              <MenubarItem onClick={handleLogout}>Sair</MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
       )}
       <Menubar>
         <MenubarMenu>
@@ -39,6 +74,9 @@ export const NavBar = () => {
             <SVGMenu aria-label="Menu" />
           </MenubarTrigger>
           <MenubarContent>
+            <Link to={'/'}>
+              <MenubarItem>Início</MenubarItem>
+            </Link>
             <MenubarItem>Anúnciar</MenubarItem>
             <MenubarItem>Comprar</MenubarItem>
             <MenubarItem>Feedback</MenubarItem>
