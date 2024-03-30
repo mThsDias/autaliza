@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { http } from '@/http';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { SignInUser } from '@/http/auth-services';
+import { useQuery } from 'react-query';
+import { Loader } from '@/components/Loader';
 
 interface CloseDialogProps {
   closeDialog: () => void;
@@ -14,26 +16,39 @@ export const SignIn = ({ closeDialog, logged }: CloseDialogProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const signIn = useQuery(['signIn'], () => SignInUser({ email, password }), {
+    enabled: false,
+    onSuccess: (response: { token: string }) => {
+      sessionStorage.setItem('token', response.token);
+      setEmail('');
+      setPassword('');
+      logged();
+      closeDialog();
+    },
+    onError: () => {
+      console.log('Erro ao fazer login');
+      setPassword('');
+    },
+    retry: 1,
+    retryDelay: 1000,
+    cacheTime: 0,
+  });
+
+  const { isLoading, isError } = signIn;
+
   const handleSubmitSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-    const user = {
-      email,
-      password,
-    };
 
-    http
-      .post('login', user)
-      .then((response) => {
-        sessionStorage.setItem('token', response.data.token);
-        setEmail('');
-        setPassword('');
-        logged();
-        closeDialog();
-      })
-      .catch(() => {
-        console.log('Erro ao fazer login');
-      });
+    signIn.refetch();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmitSignIn}>
@@ -59,6 +74,11 @@ export const SignIn = ({ closeDialog, logged }: CloseDialogProps) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      {isError && (
+        <div className="text-red-600 text-xs pb-4">
+          E-mail ou senha inválidos.
+        </div>
+      )}
       <DialogFooter>
         <Button type="submit">Entrar</Button>
       </DialogFooter>
