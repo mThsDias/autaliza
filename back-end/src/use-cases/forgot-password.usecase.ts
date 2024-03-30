@@ -24,7 +24,7 @@ export class ForgotPasswordUseCase {
     await EmailService.sendEmail(
       email,
       'renovação de senha',
-      `<p>Clique no link para atualizar sua senha: <a href="http://localhost:8080/reset-password/${resetToken}">Clique aqui</a></p>`
+      `<p>Clique no link para atualizar sua senha: <a href="http://localhost:5173/reset-password/${resetToken}">Clique aqui</a></p>`
     );
   }
 }
