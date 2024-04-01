@@ -3,17 +3,14 @@ import { SVGCoins } from '@/shared/icons/SVGCoins';
 import { SVGCredit } from '@/shared/icons/SVGCredit';
 import { Button } from '../ui/button';
 import { Banner } from '../Banner';
-import { NavBar } from '../NavBar';
 import bg from './assets/bg.png';
 
 export const Header = () => {
   return (
     <header>
       <Banner img={bg} />
-      <div className="absolute top-0 left-0 w-full">
-        <NavBar />
-        <div className="w-full h-[1px] bg-white"></div>
-        <div className="flex justify-between items-center py-7 px-4">
+      <div className="absolute top-12 left-0 w-full">
+        <div className="flex justify-between items-center py-8 px-4">
           <p className="text-white text-sm font-medium">Autaliza</p>
         </div>
         <div className="px-4 pb-7">

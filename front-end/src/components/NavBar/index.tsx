@@ -37,7 +37,7 @@ export const NavBar = ({ userLogout }: LogoutProps) => {
   };
 
   return (
-    <nav className="flex items-center justify-between py-4 px-4">
+    <nav className="flex items-center justify-between py-2 px-4 bg-zinc-900">
       {!isLogged ? (
         <Dialog>
           <DialogTrigger asChild>

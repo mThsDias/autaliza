@@ -5,7 +5,7 @@ interface ImgProps {
 export const Banner = ({ img }: ImgProps) => {
   return (
     <div>
-      <img src={img} alt="Banner" className="object-cover  w-full h-[472px]" />
+      <img src={img} alt="Banner" className="object-cover  w-full h-[420px]" />
     </div>
   );
 };

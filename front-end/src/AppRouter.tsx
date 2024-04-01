@@ -20,9 +20,7 @@ export const AppRouter = () => {
               element={<NewPasswordReset />}
             />
             <Route path="/profile" element={<UserArea />}>
-              <Route path="/profile" element={<Profile />} />
-              {/* <Route path="/new-announcement" element={} />
-            <Route path="/my-announcement" element={} /> */}
+              <Route index element={<Profile />} />
             </Route>
           </Route>
         </Routes>
