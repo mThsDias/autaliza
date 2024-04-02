@@ -40,8 +40,6 @@ export const Register = () => {
       .catch(() => {
         alert('Erro ao criar usuário');
       });
-
-    console.log(user);
   };
 
   return (

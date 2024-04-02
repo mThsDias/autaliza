@@ -1,31 +1,47 @@
+import { Loader } from '@/components/Loader';
 import { Button } from '@/components/ui/button';
-import { http } from '@/http';
+import { ResetPasswordUser } from '@/http/auth-services';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 export const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const { token } = useParams<{ token: string }>();
+  const [confirmPassword, setPasswordConfirm] = useState('');
+
+  const resetPassword = useQuery(
+    ['resetPassword'],
+    () => ResetPasswordUser(newPassword, confirmPassword),
+    {
+      enabled: false,
+      onSuccess: (response: { token: string }) => {
+        sessionStorage.setItem('token', response.token);
+        setNewPassword('');
+        setPasswordConfirm('');
+      },
+      onError: () => {
+        console.log('Erro ao fazer login');
+        setNewPassword('');
+      },
+      retry: 1,
+      retryDelay: 1000,
+      cacheTime: 0,
+    }
+  );
+
+  const { isLoading, isError } = resetPassword;
 
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const user = {
-      newPassword,
-      confirmPassword,
-    };
-
-    http
-      .post(`reset-password/${token}`, user)
-      .then(() => {
-        setNewPassword('');
-        setConfirmPassword('');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    resetPassword.refetch();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleReset}>
@@ -47,10 +63,13 @@ export const ResetPassword = () => {
           id="confirmPassword"
           name="confirmPassword"
           required
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
           value={confirmPassword}
         />
       </div>
+      {isError && (
+        <div className="text-red-600 text-xs pb-4">As senhas não conferem.</div>
+      )}
       <Button variant={'default'}>Confirmar</Button>
     </form>
   );

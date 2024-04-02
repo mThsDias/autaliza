@@ -3,9 +3,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { SignInUser } from '@/http/auth-services';
-import { useQuery } from 'react-query';
 import { Loader } from '@/components/Loader';
+import { useMutation } from 'react-query';
+import { IUser } from '@/interfaces/user.interface';
+import { SignInUser } from '@/http/auth-services';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface CloseDialogProps {
   closeDialog: () => void;
@@ -16,30 +18,18 @@ export const SignIn = ({ closeDialog, logged }: CloseDialogProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const signIn = useQuery(['signIn'], () => SignInUser({ email, password }), {
-    enabled: false,
-    onSuccess: (response: { token: string }) => {
-      sessionStorage.setItem('token', response.token);
-      setEmail('');
-      setPassword('');
+  const signInUser = useMutation((user: IUser) => SignInUser(user), {
+    onSuccess: () => {
       logged();
       closeDialog();
     },
-    onError: () => {
-      console.log('Erro ao fazer login');
-      setPassword('');
-    },
-    retry: 1,
-    retryDelay: 1000,
-    cacheTime: 0,
   });
 
-  const { isLoading, isError } = signIn;
+  const { isLoading, isError } = signInUser;
 
   const handleSubmitSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-
-    signIn.refetch();
+    signInUser.mutate({ email, password });
   };
 
   if (isLoading) {
