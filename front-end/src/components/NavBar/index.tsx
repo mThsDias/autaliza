@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Menubar,
@@ -13,26 +13,16 @@ import { SVGUser } from '@/shared/icons/SVGUser';
 import { SVGMenu } from '@/shared/icons/SVGMenu';
 import { Login } from '../Login';
 import { Link, useNavigate } from 'react-router-dom';
+import { CheckLogged } from '@/contexts/useCheckLogged';
 
-interface LogoutProps {
-  userLogout?: () => void;
-}
-
-export const NavBar = ({ userLogout }: LogoutProps) => {
-  const token = sessionStorage.getItem('token');
-
-  const [isLogged, setIsLogged] = useState<boolean>(token != null);
+export const NavBar = () => {
+  const { isLogged, setIsLogged } = useContext(CheckLogged);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     setIsLogged(false);
-
-    if (userLogout) {
-      userLogout();
-    }
-
     navigate('/');
   };
 
@@ -46,7 +36,7 @@ export const NavBar = ({ userLogout }: LogoutProps) => {
               <p className="text-white">Login</p>
             </Button>
           </DialogTrigger>
-          <Login userLogged={() => setIsLogged(true)} />
+          <Login />
         </Dialog>
       ) : (
         <Menubar>

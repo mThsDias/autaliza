@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { DialogFooter } from '@/components/ui/dialog';
@@ -8,20 +8,17 @@ import { useMutation } from 'react-query';
 import { IUser } from '@/interfaces/user.interface';
 import { SignInUser } from '@/http/auth-services';
 import 'react-toastify/dist/ReactToastify.css';
+import { CheckLogged } from '@/contexts/useCheckLogged';
 
-interface CloseDialogProps {
-  closeDialog: () => void;
-  logged: () => void;
-}
-
-export const SignIn = ({ closeDialog, logged }: CloseDialogProps) => {
+export const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { setIsLogged } = useContext(CheckLogged);
+
   const signInUser = useMutation((user: IUser) => SignInUser(user), {
     onSuccess: () => {
-      logged();
-      closeDialog();
+      setIsLogged(true);
     },
   });
 
