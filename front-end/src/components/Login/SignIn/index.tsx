@@ -5,19 +5,20 @@ import { DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Loader } from '@/components/Loader';
 import { useMutation } from 'react-query';
-import { IUser } from '@/interfaces/user.interface';
-import { SignInUser } from '@/http/auth-services';
+import { IUserLogin } from '@/interfaces/user.interface';
+import { SignInUser } from '@/http/services';
 import 'react-toastify/dist/ReactToastify.css';
-import { CheckLogged } from '@/contexts/useCheckLogged';
+import { Auth } from '@/contexts/useAuthContext';
 
 export const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setIsLogged } = useContext(CheckLogged);
+  const { setIsLogged } = useContext(Auth);
 
-  const signInUser = useMutation((user: IUser) => SignInUser(user), {
-    onSuccess: () => {
+  const signInUser = useMutation((user: IUserLogin) => SignInUser(user), {
+    onSuccess: (data) => {
+      sessionStorage.setItem('token', data);
       setIsLogged(true);
     },
   });

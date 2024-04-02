@@ -1,6 +1,6 @@
 import { Loader } from '@/components/Loader';
 import { Button } from '@/components/ui/button';
-import { ResetPasswordUser } from '@/http/auth-services';
+import { ResetPasswordUser } from '@/http/services';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 

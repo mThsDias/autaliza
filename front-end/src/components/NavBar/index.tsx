@@ -13,10 +13,10 @@ import { SVGUser } from '@/shared/icons/SVGUser';
 import { SVGMenu } from '@/shared/icons/SVGMenu';
 import { Login } from '../Login';
 import { Link, useNavigate } from 'react-router-dom';
-import { CheckLogged } from '@/contexts/useCheckLogged';
+import { Auth } from '@/contexts/useAuthContext';
 
 export const NavBar = () => {
-  const { isLogged, setIsLogged } = useContext(CheckLogged);
+  const { isLogged, setIsLogged, user } = useContext(Auth);
 
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ export const NavBar = () => {
             <MenubarTrigger>
               <Avatar>
                 <AvatarImage />
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarFallback>{user?.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
             </MenubarTrigger>
             <MenubarContent>

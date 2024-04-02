@@ -5,14 +5,14 @@ import { NewPasswordReset } from './pages/NewPasswordReset';
 import { UserArea } from './pages/UserArea';
 import { Profile } from './pages/Profile';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { CheckLoggedProvider } from './contexts/useCheckLogged';
+import { AuthProvider } from './contexts/useAuthContext';
 
 export const AppRouter = () => {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CheckLoggedProvider>
+      <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<RouterMain />}>
@@ -27,7 +27,7 @@ export const AppRouter = () => {
             </Route>
           </Routes>
         </BrowserRouter>
-      </CheckLoggedProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };

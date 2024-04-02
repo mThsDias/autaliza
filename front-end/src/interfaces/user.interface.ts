@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IUserLogin {
   email: string;
   password: string;
 }
@@ -8,4 +8,10 @@ export interface IUserCreate {
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface IUser {
+  token: string;
+  name: string;
+  email: string;
 }
