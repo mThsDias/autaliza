@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   DialogContent,
   DialogDescription,
@@ -5,8 +6,8 @@ import {
   DialogTitle,
 } from '../ui/dialog';
 import { ForgotPassword } from './ForgotPassword';
-import { Register } from './Register';
 import { SignIn } from './SignIn';
+import { Button } from '../ui/button';
 
 export const Login = () => {
   return (
@@ -20,7 +21,9 @@ export const Login = () => {
         </DialogHeader>
         <SignIn />
         <ForgotPassword />
-        <Register />
+        <Link to="/create-user" className="flex items-center justify-center">
+          <Button variant="ghost">Criar conta</Button>
+        </Link>
       </DialogContent>
     </>
   );

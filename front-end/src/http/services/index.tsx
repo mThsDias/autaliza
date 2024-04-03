@@ -17,8 +17,9 @@ export const ResetPasswordUser = async (
   await http.post(`reset-password/${token}`, { newPassword, confirmPassword });
 };
 
-export const RegisterUser = async (user: IUserCreate) => {
-  await http.post<IUser>('create', user);
+export const CreateUser = async (user: IUserCreate): Promise<IUser> => {
+  const response = await http.post<IUser>('create', user);
+  return response.data;
 };
 
 export const GetUser = async (): Promise<IUser> => {

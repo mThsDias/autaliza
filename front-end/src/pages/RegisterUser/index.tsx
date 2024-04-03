@@ -1,59 +1,46 @@
-import { useState } from 'react';
+import { Loader } from '@/components/Loader';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { http } from '@/http';
+import { CreateUser } from '@/http/services';
+import { IUserCreate } from '@/interfaces/user.interface';
+import { useState } from 'react';
+import { useMutation } from 'react-query';
 
-export const Register = () => {
+export const RegisterUser = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const registerUser = useMutation((user: IUserCreate) => CreateUser(user), {
+    onSuccess: () => {
+      alert('Usuário criado com sucesso');
+    },
+    onError: () => {
+      alert('Erro ao criar usuário');
+    },
+  });
+
+  const { isLoading, isError } = registerUser;
+
   const handleSubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = {
-      name,
-      email,
-      password,
-      confirmPassword,
-    };
-
-    http
-      .post('create', user)
-      .then(() => {
-        alert('Usuário criado com sucesso!');
-        setName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-      })
-      .catch(() => {
-        alert('Erro ao criar usuário');
-      });
+    registerUser.mutate({ name, email, password, confirmPassword });
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="ghost">Criar conta</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Cadastre-se</DialogTitle>
-          <DialogDescription>
-            Crie uma conta para acessar todos os recursos.
-          </DialogDescription>
-        </DialogHeader>
+    <section>
+      <div>
         <form onSubmit={handleSubmitRegister}>
           <div className="py-2">
             <Label htmlFor="name">Nome</Label>
@@ -98,11 +85,16 @@ export const Register = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+          {isError && (
+            <div className="text-red-600 text-xs pb-4">
+              Senhas não conferem.
+            </div>
+          )}
           <DialogFooter>
             <Button type="submit">Criar</Button>
           </DialogFooter>
         </form>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </section>
   );
 };

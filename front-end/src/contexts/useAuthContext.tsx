@@ -30,7 +30,7 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
   } = useQuery(['user'], GetUser, {
     onSuccess: () => {},
     onError: () => {},
-    retry: 1,
+    retry: 0,
     retryDelay: 1000,
     cacheTime: 0,
   });
