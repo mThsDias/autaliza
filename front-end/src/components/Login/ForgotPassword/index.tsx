@@ -11,29 +11,41 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { http } from '@/http';
+import { useQuery } from 'react-query';
+import { ForgotPasswordUser } from '@/http/services';
+import { Loader } from '@/components/Loader';
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
+  const forgotPassword = useQuery(
+    ['forgotPassword'],
+    () => ForgotPasswordUser(email),
+    {
+      enabled: false,
+      onSuccess: () => {
+        setEmail('');
+      },
+      retry: 1,
+      retryDelay: 1000,
+      cacheTime: 0,
+    }
+  );
+
+  const { isLoading, isError } = forgotPassword;
+
   const handleForgot = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const user = {
-      email,
-    };
-
-    http
-      .post('forgot-password', user)
-      .then(() => {
-        alert('Email enviado com sucesso');
-        setEmail('');
-      })
-      .catch((error) => {
-        alert('Erro ao enviar email');
-        console.error(error);
-      });
+    forgotPassword.refetch();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <Dialog>
@@ -58,6 +70,11 @@ export const ForgotPassword = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+          {isError && (
+            <div className="text-red-600 text-xs pb-4">
+              Email não encontrado.
+            </div>
+          )}
           <DialogFooter>
             <Button type="submit">Enviar</Button>
           </DialogFooter>

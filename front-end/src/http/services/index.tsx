@@ -37,3 +37,8 @@ export const GetUser = async (): Promise<IUser> => {
 
   return response.data;
 };
+
+export const ForgotPasswordUser = async (email: string): Promise<void> => {
+  const response = await http.post('forgot-password', { email });
+  return response.data;
+};
