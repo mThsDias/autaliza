@@ -5,26 +5,29 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../ui/dialog';
-import { ForgotPassword } from './ForgotPassword';
-import { SignIn } from './SignIn';
 import { Button } from '../ui/button';
+import { SVGSignIn } from '@/shared/icons/SVGSignIn';
+import { SVGCreateuser } from '@/shared/icons/SVGCreateUser';
 
 export const Login = () => {
   return (
-    <>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Login de usuário</DialogTitle>
-          <DialogDescription>
-            Faça login para acessar sua conta.
-          </DialogDescription>
-        </DialogHeader>
-        <SignIn />
-        <ForgotPassword />
-        <Link to="/create-user" className="flex items-center justify-center">
-          <Button variant="ghost">Criar conta</Button>
-        </Link>
-      </DialogContent>
-    </>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Bem-vindo </DialogTitle>
+        <DialogDescription>
+          Faça login para acessar sua conta e aproveitar todos os recursos.
+        </DialogDescription>
+      </DialogHeader>
+      <Link to="/login">
+        <Button variant="default" className="flex gap-2 w-full">
+          Entrar <SVGSignIn />
+        </Button>
+      </Link>
+      <Link to="/create-user">
+        <Button variant="default" className="flex gap-2 w-full">
+          Criar conta <SVGCreateuser />
+        </Button>
+      </Link>
+    </DialogContent>
   );
 };

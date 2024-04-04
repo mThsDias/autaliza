@@ -18,9 +18,6 @@ export const RegisterUser = () => {
     onSuccess: () => {
       alert('Usuário criado com sucesso');
     },
-    onError: () => {
-      alert('Erro ao criar usuário');
-    },
   });
 
   const { isLoading, isError } = registerUser;
@@ -39,64 +36,68 @@ export const RegisterUser = () => {
   }
 
   return (
-    <section className="mx-4 my-4">
-      <div className="py-4">
+    <section className="flex items-center justify-center  h-screen">
+      <div className="w-full max-w-md px-4">
         <h1 className="font-bold text-xl">Crie sua conta</h1>
         <p className="text-sm text-gray-500">
           Preencha os campos abaixo para criar sua conta.
         </p>
+        <form onSubmit={handleSubmitRegister} className="mt-4">
+          <div className="py-2">
+            <Label htmlFor="name">Nome</Label>
+            <Input
+              id="name"
+              name="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="py-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="py-2">
+            <Label htmlFor="password">Senha</Label>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="py-2">
+            <Label htmlFor="confirmPassword">Confirmar senha</Label>
+            <Input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          {isError && (
+            <div className="text-red-600 text-xs pb-4">
+              Senhas não conferem.
+            </div>
+          )}
+          <DialogFooter className="pt-2">
+            <Button className="w-full" type="submit">
+              Criar
+            </Button>
+          </DialogFooter>
+        </form>
       </div>
-      <form onSubmit={handleSubmitRegister}>
-        <div className="py-2">
-          <Label htmlFor="name">Nome</Label>
-          <Input
-            id="name"
-            name="name"
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="py-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="py-2">
-          <Label htmlFor="password">Senha</Label>
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="py-2">
-          <Label htmlFor="confirmPassword">Confirmar senha</Label>
-          <Input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            required
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        {isError && (
-          <div className="text-red-600 text-xs pb-4">Senhas não conferem.</div>
-        )}
-        <DialogFooter className="pt-4">
-          <Button type="submit">Criar</Button>
-        </DialogFooter>
-      </form>
     </section>
   );
 };

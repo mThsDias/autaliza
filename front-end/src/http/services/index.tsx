@@ -22,11 +22,11 @@ export const CreateUser = async (user: IUserCreate): Promise<IUser> => {
   return response.data;
 };
 
-export const GetUser = async (): Promise<IUser> => {
+export const GetUser = async (): Promise<IUser | null> => {
   const token = sessionStorage.getItem('token');
 
   if (!token) {
-    throw new Error('Token não encontrado');
+    return null;
   }
 
   const response: AxiosResponse<IUser> = await http.get<IUser>('profile', {

@@ -13,11 +13,11 @@ export const Profile = () => {
   }
 
   return (
-    <>
+    <section>
       <div>
         <p>Nome: {user?.name}</p>
         <p>Email: {user?.email}</p>
       </div>
-    </>
+    </section>
   );
 };
