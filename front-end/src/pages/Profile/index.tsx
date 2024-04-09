@@ -1,19 +1,20 @@
 import { Auth } from '@/contexts/useAuthContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Profile = () => {
-  const { user } = useContext(Auth);
+  const { isLogged, user } = useContext(Auth);
+  const navigate = useNavigate();
 
-  const navigation = useNavigate();
-
-  if (!user) {
-    navigation('/');
-  }
+  useEffect(() => {
+    if (!isLogged) {
+      navigate('/');
+    }
+  }, [isLogged, navigate]);
 
   return (
-    <section>
+    <section className="bg-green-400">
       <div>
         <p>Nome: {user?.name}</p>
         <p>Email: {user?.email}</p>

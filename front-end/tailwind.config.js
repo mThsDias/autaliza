@@ -53,7 +53,7 @@ module.exports = {
         },
         myColors: {
           green: '#0CCD08',
-          blue: '#087ACD',
+          blue: '#2F5CFF',
         },
       },
       borderRadius: {

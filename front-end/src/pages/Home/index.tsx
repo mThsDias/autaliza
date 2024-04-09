@@ -1,10 +1,10 @@
-import { Header } from '@/components/Header';
+import { Hero } from '@/components/Hero';
 
 export const Home = () => {
   return (
-    <>
-      <Header />
+    <main className="overflow-hidden">
+      <Hero />
       <p>home</p>
-    </>
+    </main>
   );
 };

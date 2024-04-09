@@ -1,5 +1,4 @@
-import { GetUser } from '@/http/services';
-import { IUser } from '@/interfaces/user.interface';
+import { PersonData } from '@/interfaces/person-data';
 import { createContext, useState } from 'react';
 import { useQuery } from 'react-query';
 
@@ -8,7 +7,7 @@ interface AuthContextType {
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
   isError: boolean;
-  user: IUser | undefined;
+  user: PersonData | undefined | null;
 }
 
 export const Auth = createContext<AuthContextType>({
@@ -27,7 +26,7 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
     data: user,
     isLoading,
     isError,
-  } = useQuery(['user'], GetUser, {
+  } = useQuery(['user'], {
     onSuccess: () => {},
     onError: () => {},
     retry: 0,
@@ -36,7 +35,15 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
   });
 
   return (
-    <Auth.Provider value={{ isLogged, setIsLogged, isLoading, isError, user }}>
+    <Auth.Provider
+      value={{
+        isLogged,
+        setIsLogged,
+        isLoading,
+        isError,
+        user: user as PersonData | null | undefined,
+      }}
+    >
       {children}
     </Auth.Provider>
   );
