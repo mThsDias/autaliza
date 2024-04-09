@@ -15,9 +15,12 @@ import { z } from 'zod';
 import { useState } from 'react';
 import { Loader } from '../Loader';
 import { CardWrapper } from './CardWrapper';
+import { useIdentityMutation } from '@/hooks/useIdentityMutation';
+import MessageSucess from '../AlertMessagens/MessageSucess';
 
 export const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
+  const { mutate, isSuccess } = useIdentityMutation();
 
   const form = useForm({
     resolver: zodResolver(RegisterSchema),
@@ -31,7 +34,20 @@ export const RegisterForm = () => {
 
   const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
     setLoading(true);
-    console.log(data);
+    try {
+      mutate({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        password_confirmation: data.confirmPassword,
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+
+    form.reset();
   };
 
   return (
@@ -100,6 +116,16 @@ export const RegisterForm = () => {
                 </FormItem>
               )}
             />
+          </div>
+          <div className="absolute top-0 right-0 mr-4 mt-4">
+            {isSuccess && (
+              <MessageSucess
+                title="Conta criada com sucesso!"
+                description="Agora você já pode fazer seu login."
+                href="/login"
+                descriptionLink="Fazer login"
+              />
+            )}
           </div>
           <Button type="submit" className="w-full">
             {loading ? <Loader /> : 'Criar conta'}

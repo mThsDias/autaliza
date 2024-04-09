@@ -1,25 +1,26 @@
 import { Link } from 'react-router-dom';
 import { footerLinks } from '../constants';
+import logo from '@/assets/logo.png';
 
 export const Footer = () => {
   return (
     <footer className="flex flex-col text-black-100 mt-5 border-t border-gray-400">
       <div className="flex max-md:flex-col justify-between flex-wrap gap-5 sm:px-16 px-6 py-10">
         <div className="flex flex-col justify-start items-start gap-6">
-          <h1>Logo</h1>
+          <img src={logo} alt="Logo" className="object-contain" width={120} />
           <p className="text-base text-gray-700">
             Autaliza 2024 <br />
             Todos os direitos reservados&copy;
           </p>
         </div>
 
-        <div className="flex gap-32 text-base min-w-[170px]">
+        <div className="flex text-base min-w-[170px]">
           {footerLinks.map((item) => (
             <div
               key={item.title}
               className="flex flex-col gap-6 text-base min-w-[170px]"
             >
-              <h3 className="font-bold">{item.title}</h3>
+              <h2 className="font-bold">{item.title}</h2>
               <div className="flex flex-col gap-5">
                 {item.links.map((link) => (
                   <Link

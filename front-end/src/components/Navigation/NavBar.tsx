@@ -4,15 +4,21 @@ import { CustomButton } from '../CustomButton';
 import { useState } from 'react';
 import { SVGMenu } from '@/assets/svgs/SVGMenu';
 import userIcon from '@/assets/icons/user.png';
+import logo from '@/assets/logo.png';
 
 export const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="border-b border-n-6 w-full absolute z-10 bg-white">
+    <header className="border-b border-n-6 w-full z-10 bg-white">
       <nav className="flex items-center justify-between px-8 py-6 md:px-16">
         <Link to="/">
-          <h1 className="text-2xl font-bold">Logo</h1>
+          <img
+            src={logo}
+            alt="Logo autaliza"
+            width={118}
+            className="object-contain"
+          />
         </Link>
 
         <div
