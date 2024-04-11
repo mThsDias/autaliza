@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/useAuthContext';
 import { AuthenticatedRoutes } from './routes/AuthenticatedRoutes';
-import { NonAuthenticatedRoutes } from './routes/NonAuthenticatedRoutes';
+import { NonAuthenticatedRoutes } from './routes';
 
 export const AppRouter = () => {
   const queryClient = new QueryClient();

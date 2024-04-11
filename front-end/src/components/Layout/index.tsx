@@ -1,6 +1,3 @@
-import { useContext } from 'react';
-import { Auth } from '@/contexts/useAuthContext';
-import { NavBarUser } from '../Navigation/NavBarUser';
 import { NavBar } from '../Navigation/NavBar';
 import { Footer } from '../Footer';
 
@@ -9,13 +6,11 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { isLogged } = useContext(Auth);
-
   return (
-    <div>
-      {!isLogged ? <NavBar /> : <NavBarUser />}
+    <>
+      <NavBar />
       <main>{children}</main>
       <Footer />
-    </div>
+    </>
   );
 };

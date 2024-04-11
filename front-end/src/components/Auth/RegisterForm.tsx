@@ -12,15 +12,20 @@ import { useForm } from 'react-hook-form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { z } from 'zod';
-import { useState } from 'react';
 import { Loader } from '../Loader';
 import { CardWrapper } from './CardWrapper';
-import { useIdentityMutation } from '@/hooks/useIdentityMutation';
 import MessageSucess from '../AlertMessagens/MessageSucess';
+import { useUserMutate } from '@/hooks/useUserMutate';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import MessageError from '../AlertMessagens/MessageError';
 
 export const RegisterForm = () => {
-  const [loading, setLoading] = useState(false);
-  const { mutate, isSuccess } = useIdentityMutation();
+  const [isPasswordMismatch, isSetPasswordMismatch] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { mutate, isSuccess, isError } = useUserMutate();
+
+  const navigation = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(RegisterSchema),
@@ -33,7 +38,23 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
-    setLoading(true);
+    setIsLoading(true);
+
+    if (data.password !== data.confirmPassword) {
+      isSetPasswordMismatch(true);
+
+      form.reset({
+        email: data.email,
+        name: data.name,
+        password: '',
+        confirmPassword: '',
+      });
+
+      setIsLoading(false);
+
+      return;
+    }
+
     try {
       mutate({
         name: data.name,
@@ -44,11 +65,21 @@ export const RegisterForm = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-
-    form.reset();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        navigation('/login');
+        form.reset();
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   return (
     <CardWrapper
@@ -73,6 +104,7 @@ export const RegisterForm = () => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="email"
@@ -90,6 +122,7 @@ export const RegisterForm = () => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="password"
@@ -103,6 +136,7 @@ export const RegisterForm = () => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="confirmPassword"
@@ -117,7 +151,8 @@ export const RegisterForm = () => {
               )}
             />
           </div>
-          <div className="absolute top-0 right-0 mr-4 mt-4">
+
+          <div className="absolute top-0 left-0 mr-4 mt-4">
             {isSuccess && (
               <MessageSucess
                 title="Conta criada com sucesso!"
@@ -126,9 +161,28 @@ export const RegisterForm = () => {
                 descriptionLink="Fazer login"
               />
             )}
+
+            {isError && (
+              <MessageError
+                title="Erro ao criar conta!"
+                description="E-mail já cadastrado. Tente novamente com outro e-mail."
+                href="/register"
+                descriptionLink="Tentar novamente"
+              />
+            )}
+
+            {isPasswordMismatch && (
+              <MessageError
+                title="Erro ao criar conta!"
+                description="As senhas não conferem. Tente novamente."
+                href="/register"
+                descriptionLink="Tentar novamente"
+              />
+            )}
           </div>
+
           <Button type="submit" className="w-full">
-            {loading ? <Loader /> : 'Criar conta'}
+            {isLoading ? <Loader /> : 'Criar conta'}
           </Button>
         </form>
       </Form>

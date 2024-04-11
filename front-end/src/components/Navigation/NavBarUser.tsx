@@ -6,20 +6,12 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from '@/components/ui/menubar';
-import { Link, useNavigate } from 'react-router-dom';
-import { Auth } from '@/contexts/useAuthContext';
+import { AuthContext } from '@/contexts/useAuthContext';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 export const NavBarUser = () => {
-  const { setIsLogged, user } = useContext(Auth);
-
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('token');
-    setIsLogged(false);
-    navigate('/');
-  };
+  const { signOut } = useContext(AuthContext);
 
   return (
     <header>
@@ -29,7 +21,7 @@ export const NavBarUser = () => {
             <MenubarTrigger>
               <Avatar>
                 <AvatarImage />
-                <AvatarFallback>{user?.name.slice(0, 1)}</AvatarFallback>
+                <AvatarFallback>MD</AvatarFallback>
               </Avatar>
             </MenubarTrigger>
             <MenubarContent>
@@ -39,7 +31,7 @@ export const NavBarUser = () => {
               <Link to="/app/profile">
                 <MenubarItem>Perfil</MenubarItem>
               </Link>
-              <MenubarItem onClick={handleLogout}>Sair</MenubarItem>
+              <MenubarItem onClick={signOut}>Sair</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

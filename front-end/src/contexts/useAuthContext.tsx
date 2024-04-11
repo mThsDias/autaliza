@@ -1,50 +1,67 @@
 import { PersonData } from '@/interfaces/person-data';
-import { createContext, useState } from 'react';
-import { useQuery } from 'react-query';
+import { createContext, useEffect, useState } from 'react';
+import { AuthContextProps, ChildrenProps } from '@/@types/auth';
+import { http } from '@/Services/http';
 
-interface AuthContextType {
-  isLogged: boolean;
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
-  isLoading: boolean;
-  isError: boolean;
-  user: PersonData | undefined | null;
-}
+export const AuthContext = createContext({
+  user: null,
+  signed: false,
+  setUser: (data: PersonData) => {
+    data;
+  },
+  signIn: (data: PersonData) => {
+    data;
+  },
+  signOut: () => {
+    return;
+  },
+} as AuthContextProps);
 
-export const Auth = createContext<AuthContextType>({
-  isLogged: false,
-  setIsLogged: () => {},
-  isLoading: false,
-  isError: false,
-  user: undefined,
-});
+export const AuthProvider = ({ children }: ChildrenProps) => {
+  const [user, setUser] = useState<PersonData | null>(null);
 
-export function AuthProvider({ children }: React.PropsWithChildren) {
-  const token = sessionStorage.getItem('token');
-  const [isLogged, setIsLogged] = useState<boolean>(token != null);
+  useEffect(() => {
+    const loadingStoreData = async () => {
+      const token = sessionStorage.getItem('@Auth:token');
 
-  const {
-    data: user,
-    isLoading,
-    isError,
-  } = useQuery(['user'], {
-    onSuccess: () => {},
-    onError: () => {},
-    retry: 0,
-    retryDelay: 1000,
-    cacheTime: 0,
-  });
+      if (token) {
+        http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        setUser({ token });
+      }
+    };
+
+    loadingStoreData();
+  }, []);
+
+  const signIn = async ({ email, password }: PersonData) => {
+    try {
+      const response = await http.post('/login', { email, password });
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        setUser(response.data);
+
+        http.defaults.headers.common[
+          'Authorization'
+        ] = `Bearer ${response.data.token}`;
+
+        sessionStorage.setItem('@Auth:token', response.data.token);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const signOut = () => {
+    sessionStorage.clear();
+    setUser(null);
+  };
 
   return (
-    <Auth.Provider
-      value={{
-        isLogged,
-        setIsLogged,
-        isLoading,
-        isError,
-        user: user as PersonData | null | undefined,
-      }}
+    <AuthContext.Provider
+      value={{ user, setUser, signed: !!user, signIn, signOut }}
     >
       {children}
-    </Auth.Provider>
+    </AuthContext.Provider>
   );
-}
+};

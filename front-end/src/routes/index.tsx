@@ -11,7 +11,7 @@ export const NonAuthenticatedRoutes = () => {
     <Layout>
       <Routes>
         <Route index element={<Home />} />
-        {<Route path="/login" element={<SignIn />} />}
+        <Route path="/login" element={<SignIn />} />
         <Route path="/create-user" element={<RegisterUser />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* <Route path="/reset-password/:token" element={<NewPasswordReset />} /> */}

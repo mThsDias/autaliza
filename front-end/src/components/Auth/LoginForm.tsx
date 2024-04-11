@@ -12,11 +12,15 @@ import { useForm } from 'react-hook-form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { z } from 'zod';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { CardWrapper } from './CardWrapper';
+import { Loader } from '../Loader';
+// import MessageSucess from '../AlertMessagens/MessageSucess';
+import { AuthContext } from '@/contexts/useAuthContext';
 
 export const LoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const { signIn } = useContext(AuthContext);
 
   const form = useForm({
     resolver: zodResolver(LoginSchema),
@@ -26,9 +30,19 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (
+    data: Omit<z.infer<typeof LoginSchema>, 'name' | 'password_confirmation'>
+  ) => {
     setLoading(true);
-    console.log(data);
+    try {
+      signIn(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+
+    form.reset();
   };
 
   return (
@@ -72,8 +86,17 @@ export const LoginForm = () => {
               )}
             />
           </div>
+          {/* <div className="absolute top-0 right-0 mr-4 mt-4">
+            {isSuccess && (
+              <MessageSucess
+                title="Login efetuado com sucesso!"
+                description="Você será redirecionado para a página inicial."
+                href="/"
+              />
+            )}
+          </div> */}
           <Button type="submit" className="w-full">
-            {loading ? 'Loading...' : 'Login'}
+            {loading ? <Loader /> : 'Login'}
           </Button>
         </form>
       </Form>

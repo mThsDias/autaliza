@@ -14,9 +14,14 @@ import { Button } from '../ui/button';
 import { z } from 'zod';
 import { useState } from 'react';
 import { CardWrapper } from './CardWrapper';
+import { useForgotPasswordMutate } from '@/hooks/useUserMutate';
+import MessageSucess from '../AlertMessagens/MessageSucess';
+import MessageError from '../AlertMessagens/MessageError';
+import { Loader } from '../Loader';
 
 export const ForgotPasswordForm = () => {
   const [loading, setLoading] = useState(false);
+  const { mutate, isSuccess, isError } = useForgotPasswordMutate();
 
   const form = useForm({
     resolver: zodResolver(ForgotPasswordSchema),
@@ -27,7 +32,13 @@ export const ForgotPasswordForm = () => {
 
   const onSubmit = (data: z.infer<typeof ForgotPasswordSchema>) => {
     setLoading(true);
-    console.log(data);
+    try {
+      mutate(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,8 +69,29 @@ export const ForgotPasswordForm = () => {
               )}
             />
           </div>
+
+          <div className="absolute top-0 left-0 mr-4 mt-4">
+            {isSuccess && (
+              <MessageSucess
+                title="E-mail enviado!"
+                description="Verifique sua caixa de entrada para redefinir sua senha."
+                href="/login"
+                descriptionLink="Fazer login"
+              />
+            )}
+
+            {isError && (
+              <MessageError
+                title="Erro ao enviar e-mail!"
+                description="Verifique se o e-mail está correto."
+                href="/forgot-password"
+                descriptionLink="Tente novamente"
+              />
+            )}
+          </div>
+
           <Button type="submit" className="w-full">
-            {loading ? 'Loading...' : 'Enviar'}
+            {loading ? <Loader /> : 'Enviar'}
           </Button>
         </form>
       </Form>

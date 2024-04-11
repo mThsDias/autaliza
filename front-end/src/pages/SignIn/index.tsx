@@ -1,7 +1,6 @@
 import { LoginForm } from '@/components/Auth/LoginForm';
 import { CustomButton } from '@/components/CustomButton';
 import { Link } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
 
 export const SignIn = () => {
   return (
