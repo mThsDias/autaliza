@@ -36,17 +36,14 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
   const signIn = async ({ email, password }: PersonData) => {
     try {
       const response = await http.post('/login', { email, password });
-      if (response.data.error) {
-        alert(response.data.error);
-      } else {
-        setUser(response.data);
 
-        http.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${response.data.token}`;
+      http.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${response.data.token}`;
 
-        sessionStorage.setItem('@Auth:token', response.data.token);
-      }
+      sessionStorage.setItem('@Auth:token', response.data.token);
+
+      setUser(response.data);
     } catch (error) {
       console.log(error);
     }

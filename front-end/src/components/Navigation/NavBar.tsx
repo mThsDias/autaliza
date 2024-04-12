@@ -1,16 +1,13 @@
 import { Link } from 'react-router-dom';
 import { navigation } from '@/components/constants';
 import { CustomButton } from '../CustomButton';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { SVGMenu } from '@/assets/svgs/SVGMenu';
 import userIcon from '@/assets/icons/user.png';
 import logo from '@/assets/logo.png';
-import { AuthContext } from '@/contexts/useAuthContext';
-import { NavBarUser } from './NavBarUser';
 
 export const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { signed } = useContext(AuthContext);
 
   return (
     <header className="border-b border-n-6 w-full z-10 bg-white">
@@ -53,19 +50,15 @@ export const NavBar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {signed ? (
-            <NavBarUser />
-          ) : (
-            <Link to="/login" className="flex items-center">
-              <CustomButton
-                title="Login"
-                variant={'outline'}
-                textStyles="text-myColors-blue text-base"
-                containerStyles="flex gap-2 items-center"
-                rightIcon={userIcon}
-              />
-            </Link>
-          )}
+          <Link to="/login" className="flex items-center">
+            <CustomButton
+              title="Login"
+              variant={'outline'}
+              textStyles="text-myColors-blue text-base"
+              containerStyles="flex gap-2 items-center"
+              rightIcon={userIcon}
+            />
+          </Link>
 
           <div className="md:hidden">
             <SVGMenu onClick={() => setMenuOpen(!menuOpen)} />

@@ -1,8 +1,10 @@
+import { Dashboard } from '@/components/Dashboard';
+
 export const Profile = () => {
   return (
-    <section className="bg-green-400 h-screen">
+    <section className="bg-red-500">
       <div>
-        <h1>Perfil usuario</h1>
+        <Dashboard />
       </div>
     </section>
   );

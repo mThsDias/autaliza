@@ -4,7 +4,7 @@ import logo from '@/assets/logo.png';
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-col text-black-100 mt-5 border-t border-gray-400">
+    <footer className="flex flex-col text-black-100 border-t border-gray-400">
       <div className="flex max-md:flex-col justify-between flex-wrap gap-5 sm:px-16 px-6 py-10">
         <div className="flex flex-col justify-start items-start gap-6">
           <img src={logo} alt="Logo" className="object-contain" width={120} />
