@@ -9,9 +9,11 @@ import {
 import { AuthContext } from '@/contexts/useAuthContext';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useUserData } from '@/hooks/useUserData';
 
 export const NavBarUser = () => {
   const { signOut } = useContext(AuthContext);
+  const { data } = useUserData();
 
   return (
     <header>
@@ -21,7 +23,9 @@ export const NavBarUser = () => {
             <MenubarTrigger>
               <Avatar>
                 <AvatarImage />
-                <AvatarFallback>MD</AvatarFallback>
+                <AvatarFallback>
+                  {data?.name?.slice(0, 1).toLocaleUpperCase()}
+                </AvatarFallback>
               </Avatar>
             </MenubarTrigger>
             <MenubarContent>

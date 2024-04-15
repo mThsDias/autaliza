@@ -17,29 +17,6 @@ export const navigation = [
   },
 ];
 
-export const menuSidebar = [
-  {
-    title: 'Meus anúncios',
-    url: '/meus-anuncios',
-    icon: '📦',
-  },
-  {
-    title: 'Novo anúncio',
-    url: '/fazer-anuncio',
-    icon: '➕',
-  },
-  {
-    title: 'Meus favoritos',
-    url: '/meus-favoritos',
-    icon: '❤️',
-  },
-  {
-    title: 'Configurações',
-    url: '/configuracoes',
-    icon: '⚙️',
-  },
-];
-
 export const footerLinks = [
   {
     title: 'Sobre',

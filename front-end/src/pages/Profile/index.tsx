@@ -1,11 +1,9 @@
-import { Dashboard } from '@/components/Dashboard';
+import { UserPanel } from './components/UserPanel';
 
 export const Profile = () => {
   return (
-    <section className="bg-red-500">
-      <div>
-        <Dashboard />
-      </div>
+    <section className="h-screen">
+      <UserPanel />
     </section>
   );
 };

@@ -1,11 +1,19 @@
 import { Layout } from '@/components/Layout';
-import { AuthContext } from '@/contexts/useAuthContext';
+import { Home } from '@/pages/Home';
 import { Profile } from '@/pages/Profile';
-import { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const AuthenticatedRoutes = () => {
-  const { signed } = useContext(AuthContext);
-
-  return <Layout>{signed ? <Profile /> : <Navigate to="/login" />}</Layout>;
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Layout>
+  );
 };

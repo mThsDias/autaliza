@@ -14,5 +14,8 @@ export const useUserData = () => {
     queryKey: ['user'],
   });
 
-  return query;
+  return {
+    ...query,
+    data: query.data?.data,
+  };
 };

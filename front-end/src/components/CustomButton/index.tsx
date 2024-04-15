@@ -36,7 +36,7 @@ export const CustomButton = ({
         variant={variant}
       >
         <span className={`flex-1 ${textStyles}`}>{title}</span>
-        <div className="ml-2">
+        <div>
           {rightIcon && <img src={rightIcon} width={20} alt="right icon" />}
         </div>
       </Button>
